@@ -1,0 +1,34 @@
+{
+    "type": "module",
+    "name": "technical-evaluation-assignment",
+    "version": "1.0.0",
+    "description": "The purpose of this assignment is to evaluate the candidate’s proficiency in backend development using Node.js, Express, MySQL, and Sequelize ORM.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": " nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Rimzim-002/Technical-Evaluation-Assignment.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Rimzim-002/Technical-Evaluation-Assignment/issues"
+    },
+    "homepage": "https://github.com/Rimzim-002/Technical-Evaluation-Assignment#readme",
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "joi": "^17.13.3",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.14.1",
+        "nanoid": "^5.1.5",
+        "nodemon": "^3.1.10",
+        "sequelize": "^6.37.7",
+        "winston": "^3.17.0"
+    }
+}
