@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 config()
-const SECRET_KEY = process.env.JWT_SECRET 
+const SECRET_KEY = process.env.JWT_SECRET_KEY
 
 
 class JwtTokenManager {

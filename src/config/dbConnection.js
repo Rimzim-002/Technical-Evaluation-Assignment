@@ -15,9 +15,11 @@ const dbconnection = new Sequelize(
 const connectdb= async()=>{
     try{
   await dbconnection.authenticate()
-  logger.info("Database connect successfully")
+  
+    logger.info("Database connect successfully")
+    
     }catch(error){
-logger.error("Error is databseconnection")
+     logger.error("Error is databseconnection")
     }
 }
   export {dbconnection,connectdb}
