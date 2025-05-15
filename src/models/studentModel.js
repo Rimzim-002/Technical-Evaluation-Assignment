@@ -17,6 +17,7 @@ import { nanoid } from "nanoid";
        },
     email:{
         type:DataTypes.STRING,
+          unique: true,
         allowNull:false,
     },
     password:{
@@ -37,7 +38,8 @@ import { nanoid } from "nanoid";
     timestamps:true,
     createdAt:true,
     updatedAt:true
-})
+}
+)
  Student.sync()
  .then(()=>{
     logger.info("Student Table created successfuly")

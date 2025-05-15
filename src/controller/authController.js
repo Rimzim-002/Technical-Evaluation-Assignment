@@ -7,32 +7,36 @@ export  class authController{
 async studentSignup(req,res){
     try{
      const {name,email,password}=req.body
-     await joiValidations.signupSchema.validate(req.body)
-     const isEmailExist =await studentService.emailExist(email)
-     console.log(isEmailExist,"3456789")
+     const {error }=await joiValidations.signupSchema.validate(req.body)
+     if (error) {
+        console.error('Joi validation error:', error.details);  
+        return apiResponse.error(res, {
+          status: responseCodes.BAD_REQUEST,
+          message: error.details[0].message,  
+          data: {}
+        });
+      }
 
+     const isEmailExist =await studentService.emailExist(email)
+console.log("6789",isEmailExist)
      if(isEmailExist){
-        // apiResponse.error(res,{status:responseCodes.NOT_FOUND,message:Messages.USER.EMAIL_EXISTS,data:{}})
-         return res.status(500).json({
-      status: 200,
-      message: Messages.USER.EMAIL_EXISTS,
-      data:isEmailExist,
-    });
+  return apiResponse.error(res, {
+          status: responseCodes.BAD_REQUEST,
+          message: Messages.USER.EMAIL_EXISTS,
+          data: {} 
+        });        
      }
-     const createStudent= await studentService.create(req.body)
-      // apiResponse.success(res,{status:responseCodes.CREATED,message:Messages.USER.CREATED_SUCESSFULLY,data:{createStudent}})
-return res.status(200).json({
-      status: 200,
-      message: Messages.USER.EMAIL_EXISTS,
-      data:createStudent,
-    });
+     const createStudent= await studentService.create({name,email,password})
+apiResponse.success(res, {
+        status: responseCodes.CREATED,
+        message: Messages.USER.CREATED_SUCESSFULLY,
+        data: { createStudent } });
     }catch(error){
-      // apiResponse.error(res,{status:responseCodes.SYSTEM_ERROR,message:Messages.USER.CREATED_FAILED,data:error.message})
-  return res.status(500).json({
-      status: 200,
-      message: Messages.USER.EMAIL_EXISTS,
-      data:error,
-    });
+     apiResponse.error(res, {
+          status: responseCodes.SYSTEM_ERROR,
+          message: Messages.SYSTEM.SERVER_ERROR,
+          data: {} 
+        });  
     }
     
 }

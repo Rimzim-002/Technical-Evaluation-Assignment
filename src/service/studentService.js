@@ -3,17 +3,20 @@ import Messages from "../utils/messageManager.js";
 import Student from "../models/studentModel.js";
 import apiResponse from "../utils/apiResponse.js";
 import bcrypt from  "bcrypt"
+import logger from "../utils/loggerManager.js";
 export  class studentService {
 
   async emailExist(email) {
     try {
-      const isEmailExist = await Student.findOne({
-        where: {email:email},
-      })
-      console.log(isEmailExist,"5678")
-    return isEmailExist
+     
+      const student = await Student.findOne({
+        where: { email:email }
+      });
+        return student 
     } catch (error) {
-      apiResponse.error({ message: Messages.USER.EMAIL_NOT_EXISTS });
+      
+     logger.error("Error checking email existence:", error);
+      throw new Error(Messages.USER.EMAIL_NOT_EXISTS);  
     }
   }
   async create(attibutes){
@@ -23,8 +26,10 @@ export  class studentService {
       const createStudent= await Student.create({
          name:name,
          email:email,
-         password:hashPassword 
+         password:hashPassword ,
+         role: role || '0', 
            })
+           console.log("567",createStudent)
      return createStudent
 
    }catch(error){

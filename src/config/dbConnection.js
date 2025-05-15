@@ -9,6 +9,7 @@ const dbconnection = new Sequelize(
   {
     host: process.env.DATABASE_HOST ,
     dialect: 'mysql',
+    port: process.env.DB_PORT || 3306
   },
 );
 const connectdb= async()=>{

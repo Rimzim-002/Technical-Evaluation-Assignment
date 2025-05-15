@@ -12,7 +12,7 @@
     return res.status(data.status).json({
       status: data.status,
       message: data.message,
-      data: data.data ?? {},
+     data: data.data ?? {}
     });
   }
 }
