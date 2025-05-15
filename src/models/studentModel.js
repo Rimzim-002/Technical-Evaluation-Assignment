@@ -8,8 +8,8 @@ import { nanoid } from "nanoid";
     
     id: {
       type: DataTypes.STRING,
-      primaryKey: true,
-      defaultValue: () => nanoid(6),
+        primaryKey: true,
+        defaultValue: () => nanoid(6),
     },
     name:{
         type:DataTypes.STRING,
@@ -31,7 +31,7 @@ import { nanoid } from "nanoid";
     role: {
       type: DataTypes.ENUM('0','1'),
       allowNull: false,
-      defaultValue:0
+      defaultValue:'0'
     },
 
 },{
@@ -40,6 +40,7 @@ import { nanoid } from "nanoid";
     updatedAt:true
 }
 )
+
  Student.sync()
  .then(()=>{
     logger.info("Student Table created successfuly")

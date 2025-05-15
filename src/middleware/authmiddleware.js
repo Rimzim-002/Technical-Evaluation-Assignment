@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import jwtmanager from '../utils/jwtmanager';
-import Messages from "../utils/messageManager"
+import jwtmanager from '../utils/jwtmanager.js';
+import Messages from "../utils/messageManager.js"
 dotenv.config();
 
 const SECRET_KEY = process.env.JWT_SECRET ;
