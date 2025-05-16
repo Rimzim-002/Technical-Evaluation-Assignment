@@ -24,7 +24,8 @@ const Messages = {
   COURSE: {
     COURSE_SUCCESS: "course created successfully",
     COURSE_FAILED: "course created failed",
-
+    COURSE_FETCH_FAILED: " Fetch Failed",
+    COURSE_FETCH_SUCCESS: " Fetch success",
     COURSE_EXISTS: "course already in use",
     COURSE_NOT_EXISTS: "course not exist",
 

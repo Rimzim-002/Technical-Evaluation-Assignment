@@ -2,7 +2,6 @@ import Course from "./courcesModel.js";
 import Enrollment from "./emrollmentModel.js";
 import Student from "./studentModel.js";
 
-
 // Realations
 Student.belongsToMany(Course, { through: Enrollment, foreignKey: "studentId" });
 Course.belongsToMany(Student, { through: Enrollment, foreignKey: "courseId" });
