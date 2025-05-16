@@ -1,8 +1,8 @@
-import Messages from "../utils/messageManager.js";
 import Course from "../models/courcesModel.js";
 import { escape } from "mysql2";
 import Enrollment from "../models/emrollmentModel.js";
 import Student from "../models/studentModel.js";
+import { Op } from "sequelize";
 export class courseServices {
   async findcourse(name) {
     try {
@@ -30,76 +30,91 @@ export class courseServices {
     }
   }
   //getting all courses
- 
+  async getAllCourses(role, studentId, query) {
+    try {
+      const {
+        search = "",
+        sortBy = "createdAt",
+        sortOrder = "DESC",
+        page = 1,
+        limit = 10,
+      } = query;
 
-async getAllCourses(role, studentId, query) {
-  try {
-    const search = query.search ;
-    const sortBy = query.sortBy ;
-    const sortOrder = query.sortOrder ;
-    const page = parseInt(query.page) ;
-    const limit = parseInt(query.limit);
-    const offset = (page - 1) * limit;
+      const offset = (page - 1) * limit;
 
-    const where = {
-      isActive: true,
-    };
-
-    if (search) {
-      where.courseName = { [Op.like]: `%${search}%` };
-    }
-
-    // Fetch all  courses
-    const courses = await Course.findAll({
-      where,
-      order: [[sortBy, sortOrder]],
-      limit,
-      offset,
-    });
-
-    // If student, check enrollments
-    if (role !== "1") {
-      const enrolledCourses = await Enrollment.findAll({
-        where: { studentId },
-        attributes: ["courseId"],
+      // Find all courses with search, sort, pagination
+      const courses = await Course.findAll({
+        where: {
+          isActive: true,
+          name: { [Op.like]: `%${search}%` },
+        },
+        order: [[sortBy, sortOrder]],
+        limit: parseInt(limit),
+        offset: parseInt(offset),
       });
 
-      // Convert to plain array of IDs
-      const enrolledIds = enrolledCourses.map(e => e.courseId);
+      // If user is a student, add isEnrolled flag
+      if (role !== "1") {
+        const enrolledCourses = await Enrollment.findAll({
+          where: { studentId },
+          attributes: ["courseId"],
+        });
 
-      // Add isEnrolled flag to each course
-      const updatedCourses = courses.map(course => {
-        return {
-          ...course.toJSON(),
-          isEnrolled: enrolledIds.includes(course.id),
-        };
-      });
+        const enrolledIds = enrolledCourses.map((e) => e.courseId);
 
-      return updatedCourses;
+        const updatedCourses = courses.map((course) => {
+          const data = course.toJSON();
+          return {
+            ...data,
+            isEnrolled: enrolledIds.includes(course.id),
+          };
+        });
+
+        return updatedCourses;
+      }
+
+      return courses;
+    } catch (error) {
+      throw new Error(error.message);
     }
-
-    // If admin, just return all courses
-    return courses;
-
-  } catch (error) {
-    throw new Error(error.message);
   }
-}
 
   // getting course by id
-  async getCourseById(id) {
+  async getCourseById(id, role) {
     try {
-      const courseStudents = await Enrollment.findAll({
-        where: { courseId: id },
-        include: [
-          {
-            model: Student,
-            attributes: ["name", "email", "id"],
+      if (role === "1") {
+        const course = await Course.findByPk(id, {
+          attributes: ["id", "name", "duration", "price"],
+          include: [
+            {
+              model: Enrollment,
+              include: [
+                {
+                  model: Student,
+                  attributes: ["id", "name", "email"],
+                },
+              ],
+            },
+          ],
+        });
+        // Extract student list from enrollments
+        const students = course.enrollments.map((e) => e.student);
+
+        return {
+          courseDetails: {
+            id: course.id,
+            title: course.name,
+            price: course.price,
+            duration: course.duration,
           },
-        ],
-      });
-      const students = courseStudents.map((e) => e.student);
-      return students;
+          students,
+        };
+      } else {
+        const userCourse = await Course.findByPk(id, {
+          attributes: ["id", "name", "duration", "price"],
+        });
+        return userCourse;
+      }
     } catch (error) {
       throw error;
     }

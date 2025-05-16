@@ -3,7 +3,6 @@ import { dbconnection } from "../config/dbConnection.js";
 import logger from "../utils/loggerManager.js";
 import { nanoid } from "nanoid";
 
-
 const Enrollment = dbconnection.define(
   "enrollment",
   {
@@ -33,6 +32,5 @@ const Enrollment = dbconnection.define(
     timestamps: true,
   }
 );
-
 
 export default Enrollment;

@@ -21,33 +21,31 @@ export class courseController {
         return apiResponse.error(res, {
           status: responCecodes.BAD_REQUEST,
           message: Messages.COURSE.COURSE_EXISTS,
-          
         });
       }
-      const creatingCourse = await courseService.newCourse(req.body);// creating  course
-      
-     return  apiResponse.success(
-        res,
-        {
-          status: responCecodes.SUCCESS,
-          message: Messages.COURSE.COURSE_SUCCESS,
-          data: creatingCourse ,
-        },
-      
-      );
+      const creatingCourse = await courseService.newCourse(req.body); // creating  course
+
+      return apiResponse.success(res, {
+        status: responCecodes.SUCCESS,
+        message: Messages.COURSE.COURSE_SUCCESS,
+        data: creatingCourse,
+      });
     } catch (error) {
       return apiResponse.error(res, {
         status: responCecodes.SYSTEM_ERROR,
         message: Messages.COURSE.COURSE_FAILED, // error handling
-        data:error
+        data: error,
       });
     }
   }
   // get all courses
-  async getAllCourses(req,res){
-    const{role,id}=req.user
+  async getAllCourses(req, res) {
+     const role = req.user.role;        
+    const studentId = req.user.id;     
+    const query = req.query;     
+
     try {
-      const allCourses = await courseService.getAllCourse(role,id);
+      const allCourses = await courseService.getAllCourses(role, studentId, query); //finding
       if (!allCourses) {
         return apiResponse.error(res, {
           status: responCecodes.BAD_REQUEST,
@@ -56,21 +54,22 @@ export class courseController {
       }
       return apiResponse.success(res, {
         status: responCecodes.SUCCESS,
-        message: Messages.COURSE.COURSE_FOUND,
+        message: Messages.COURSE.COURSE_FETCH_SUCCESS,
         data: allCourses,
       });
     } catch (error) {
       return apiResponse.error(res, {
         status: responCecodes.SYSTEM_ERROR,
-        message: Messages.COURSE.COURSE_FAILED,
-        data:error
+        message: Messages.COURSE.COURSE_FETCH_FAILED,
+        data: error.message,
       });
     }
   }
   async getCourseById(req, res) {
     const { id } = req.params;
+    const{role}=req.user
     try {
-      const course = await courseService.getCourseById(id);
+      const course = await courseService.getCourseById(id,role);
       if (!course) {
         return apiResponse.error(res, {
           status: responCecodes.BAD_REQUEST,
@@ -86,9 +85,9 @@ export class courseController {
       return apiResponse.error(res, {
         status: responCecodes.SYSTEM_ERROR,
         message: Messages.COURSE.COURSE_FAILED,
-        data:error.message
+        data: error.message,
       });
     }
   }
 }
-export default new courseController()
+export default new courseController();
