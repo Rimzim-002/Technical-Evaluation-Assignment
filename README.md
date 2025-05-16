@@ -85,7 +85,7 @@ Student	Register, view courses, enroll in courses
 
 ⚙️ Setup Instructions
 1. 📦 Clone the Repository
-git clone https://github.com/your-username/course-management-system.git
+git clone https://github.com/Rimzim-002/Technical-Evaluation-Assignment.git
 cd course-management-system
 2. 🧱 Install Dependencies
 npm install
