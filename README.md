@@ -1,25 +1,50 @@
-Course Management System API
-This is a secure RESTful API for managing courses and student enrollments. Built with Node.js, Express.js, MySQL, and Sequelize, it supports user authentication, role-based access control, course creation, and student enrollment.
-Features
-Admins can create and manage multiple courses.
+📘 Course Management System API
+A secure RESTful API for managing courses and student enrollments. Built with Node.js, Express.js, MySQL, and Sequelize, it supports:
 
-Students can register, login, and enroll in available courses.
+User authentication
 
-JWT-based authentication.
+Role-based access control
 
-Role-based access control (Admin & Student).
+Course creation
 
-View all courses with enrollment status.
+Student enrollment
 
-View single course details along with enrolled students.
+🚀 Features
+🛠 Admins
 
-Sequelize ORM for models, relationships, migrations, and seeders.
+Create and manage multiple courses
 
-Centralized error handling and request validation.
+View all courses and enrolled students
 
-Default Admin created via seeder.
+👩‍🎓 Students
 
-Tech Stack
+Register and log in
+
+Enroll in available courses
+
+🔐 Authentication
+
+JWT-based authentication
+
+Role-based access control (Admin & Student)
+
+📚 Course Management
+
+View all courses with enrollment status
+
+View single course with enrolled students
+
+🧩 Development Tools
+
+Sequelize ORM for models, relationships, migrations, and seeders
+
+Centralized error handling
+
+Centralized request validation
+
+Default Admin created via seeders
+
+🧰 Tech Stack
 Node.js
 
 Express.js
@@ -28,75 +53,80 @@ MySQL
 
 Sequelize
 
-JWT for authentication
+JWT (Authentication)
 
-Yup or express-validator for input validation (choose based on your project)
+Joi or express-validator (Input validation)
 
-dotenv for environment configuration
-
-
+dotenv (Environment configuration)
 
 📁 Project Structure
-
+bash
+Copy
+Edit
 .
-├── config/
-│   └── config.js         # Sequelize DB config
-├── controllers/
-├── middlewares/
-├── models/
-├── routes/
-├── seeders/
-├── services/
-├── utils/
-├── .env
+├── config/             # DB Configuration
+│   └── config.js
+├── controllers/        # Route handlers
+├── middlewares/        # Auth, error handlers, etc.
+├── models/             # Sequelize models
+├── routes/             # Express routes
+├── seeders/            # Default data population
+├── services/           # Business logic
+├── utils/              # Utility functions
+├── .env                # Environment variables
 ├── .gitignore
 ├── package.json
 ├── README.md
-└── server.js
-Roles & Permissions
+└── index.js           # Application entry point
+👤 Roles & Permissions
 Role	Permissions
 Admin	Create/view courses, view enrolled students
 Student	Register, view courses, enroll in courses
 
 ⚙️ Setup Instructions
-1. Clone the Repository
+1. 📦 Clone the Repository
 git clone https://github.com/your-username/course-management-system.git
 cd course-management-system
-2. Install Dependencies
+2. 🧱 Install Dependencies
 npm install
-3. Configure Environment Variables
-Create a .env file in the root directory
-4. Setup Environment Variables
+3. 🔐 Configure Environment Variables
+Create a .env file in the root directory:
+
 PORT=5000
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=yourpassword
 DB_NAME=course_management
 JWT_SECRET=your_jwt_secret
-
-4. Set Up the Database
-Make sure MySQL is running. Then execute:
+4. 🛠 Set Up the Database
+Ensure MySQL is running, then run:
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
- Seeders file  will create a default admin user.
+✅ The seeders will create a default admin user.
 
-5. Start the Server
-npm  run start
-🌐 The server will run at: http://localhost:5000
+5. 🚀 Start the Server
+npm run start
+🌐 Visit: http://localhost:5000
 
-6.📬 API Testing (Postman)
-✅ Includes:
-Signup / Login
-Course Creation
-Enrollment
-Fetch User Info
-Admin & Student routes
+6. 🧪 API Testing (Using Postman)
+Includes testing for:
 
- Default Admin Credentials
+✅ Signup / Login
+
+✅ Course Creation
+
+✅ Enrollment
+
+✅ Fetch User Info
+
+✅ Admin & Student route access
+
+🧑‍💼 Default Admin Credentials
+
 {
   "email": "admin@gmail.com",
   "password": "Admin@123"
 }
-Author
+👨‍💻 Author
 Developed by Rimzim
 
