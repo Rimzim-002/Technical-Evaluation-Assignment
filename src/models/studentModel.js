@@ -41,11 +41,5 @@ import { nanoid } from "nanoid";
 }
 )
 
- Student.sync()
- .then(()=>{
-    logger.info("Student Table created successfuly")
- })
- .catch((error)=>{
-    logger.error('"Error in creating Student table',error)
- })
+
  export default Student

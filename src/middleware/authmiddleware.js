@@ -7,9 +7,9 @@ dotenv.config();
 const SECRET_KEY = process.env.JWT_SECRET ;
 
 class RoleMiddleware {
-  authorizeRoles(...roles) {
+  authorizeRoles(...roles) { // role base authorization
     return (req, res, next) => {
-      const authHeader = req.headers.authorization;
+      const authHeader = req.headers.authorization; // accessing token
 
       if (!authHeader ) {
         return res.status(401).json({ message:Messages.AUTH.TOKEN_MISSING });
@@ -18,7 +18,7 @@ class RoleMiddleware {
       const token = authHeader.split(' ')[1];
 
       try {
-        const decoded = jwtmanager.verifyToken(token, SECRET_KEY);
+        const decoded = jwtmanager.verifyToken(token, SECRET_KEY);// decode the token
         req.user = decoded; 
 
         if (!roles.includes(decoded.role)) {

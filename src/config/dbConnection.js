@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
 import { config } from "dotenv";
 import logger from "../utils/loggerManager.js";
-config();
-const dbconnection = new Sequelize(
+config(); 
+const dbconnection = new Sequelize(// database  with env varibles
   process.env.DATABASE ,
   process.env.DATABASE_USER ,
   process.env.DATABASE_PASSWORD ,

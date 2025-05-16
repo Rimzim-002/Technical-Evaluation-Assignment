@@ -4,7 +4,7 @@ import authRouter from "./authRouter.js"
 import courseRoutes from "./courseRoutes.js"
 import  APIPaths  from '../constants/apipaths.js';
 const router = Router();
-
+// all routers
 router.use(APIPaths.AUTH, authRouter);
 router.use(APIPaths.USER, userRoutes);
 router.use(APIPaths.COURSE,courseRoutes);

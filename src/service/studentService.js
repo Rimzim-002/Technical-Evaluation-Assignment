@@ -4,7 +4,7 @@ import apiResponse from "../utils/apiResponse.js";
 import bcrypt from "bcrypt";
 import logger from "../utils/loggerManager.js";
 export class studentService {
-  async emailExist(email) {
+  async emailExist(email) {// checking is email exist
     try {
       const existMail = await Student.findOne({
         where: { email: email },
@@ -15,10 +15,11 @@ export class studentService {
       throw new Error(Messages.USER.EMAIL_NOT_EXISTS);
     }
   }
+  // login 
   async createStudent(attibutes) {
     const { name, email, password } = attibutes;
     try {
-      const hashPassword = await bcrypt.hash(password, 8);
+      const hashPassword = await bcrypt.hash(password, 8);// password hashing
       const newStudent = await Student.create({
         name: name,
         email: email,
@@ -29,10 +30,11 @@ export class studentService {
       throw new error();
     }
   }
+  //signup
   async enrollStudent(attributes){
   const { email, password } = attributes;
   try {
-    const isUserExist = await Student.findOne({ where: { email } });
+    const isUserExist = await Student.findOne({ where: { email } });// finding user by email
     if (!isUserExist) {
       throw new Error(Messages.USER.USER_NOT_EXIST);
     }

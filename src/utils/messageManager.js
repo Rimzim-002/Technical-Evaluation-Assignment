@@ -30,10 +30,18 @@ const Messages = {
 
     COURSE_DELETE_SUCESSFULLY: "course delete Successfully",
     COURSE_DELETE_FAILED: "course deletition failed",
-
-    COURSE_FOUND: " ourse",
-    COURSE_UPDATED: " c0urse Updated sucessfully",
+    COURSE_NOT_FOUND: "course not found",
+    COURSE_FOUND: " course",
+    COURSE_UPDATED: " curse Updated sucessfully",
     COURSE_UPDATED_FAILED: " course Updated failed",
+    COURSE_ENROLL_FAILED: "course enrollment failed",
+    COURSE_ENROLL_SUCCESS: "course enrollment successful",
+  },
+  ENROLLMENT: {
+    ENROLLMENT_SUCCESS: "Enrollment successful",
+    ENROLLMENT_FAILED: "Enrollment failed",
+    ALREADY_ENROLLED: "Already enrolled in this course",
+    ENROLLMENT_NOT_FOUND: "Enrollment not found",
   },
   AUTH: {
     TOKEN_MISSING: "Authorization token is missing",

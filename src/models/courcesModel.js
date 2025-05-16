@@ -3,8 +3,9 @@ import { dbconnection } from "../config/dbConnection.js";
 import logger from "../utils/loggerManager.js";
 import { nanoid } from "nanoid";
 import Student from "./studentModel.js";
+import Enrollment from "./emrollmentModel.js";
  const  Course=  dbconnection.define(
-    'Course',
+    'course',
     {
     
     id: {
@@ -34,8 +35,11 @@ import Student from "./studentModel.js";
         defaultValue:true
     },
     price:{
-    type:DataTypes.NUMBER,
-    allowNull:false
+    type:DataTypes.FLOAT,
+    allowNull:false,
+    validate:{
+        isFloat:true
+    },
     }
 
 },{
@@ -44,15 +48,5 @@ import Student from "./studentModel.js";
     updatedAt:true
 }
 )
-Student.belongsToMany(Course, { through: 'StudentCourses' }); 
-Course.belongsToMany(Student, { through: 'StudentCourses' });
- Course.sync()
- .then(()=>{
-    logger.info("Course Table created successfuly")
- })
- .catch((error)=>{
-    logger.error('"Error in creating Course table',error)
- })
-
 
  export default Course

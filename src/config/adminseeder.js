@@ -1,7 +1,5 @@
 import bcrypt from 'bcrypt';
 import Student from '../models/studentModel.js'; 
-
-
 import logger from '../utils/loggerManager.js';
 import { dbconnection } from './dbConnection.js';
 
@@ -30,11 +28,10 @@ const seedAdmin = async () => {
       isActive: true
     });
 
-    loggerManager.info("Admin enrolled successfully.");
+    logger.info("Admin enrolled successfully.");
   } catch (error) {
     logger.error("Error seeding admin:", error);
-  } finally {
-    await dbconnection.close();
   }
 };
+
 export default seedAdmin
